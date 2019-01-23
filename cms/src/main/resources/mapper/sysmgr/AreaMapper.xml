@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tz.cms.sysmgr.mapper.AreaMapper">
+
+    <!--所有字段名称-->
+    <sql id="all_area_column">
+        area_id,area_name,parent_id,sort,area_code,update_by,update_time,remarks
+    </sql>
+
+    <!--获取所有的区域-->
+    <select id="getAllAreaList" resultType="PmSysArea">
+        select
+        <include refid="all_area_column"></include>
+        from pm_sys_area
+    </select>
+
+</mapper>

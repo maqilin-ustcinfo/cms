@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>首页</title>
+    <title>成功</title>
     <style>
         *{
             padding:0;
@@ -48,13 +48,8 @@
 <div class="header">
     <div class="logo">web实践</div>
     <div class ="login">
-        <a href ="javascript:void(0)">登录</a>
-        <span>|</span>
-        <a href ="javascript:void(0)">故事</a>
+        <a href ="javascript:void(0)">登录成功</a>
     </div>
-</div>
-<div class="body">
-    . <a href="sysmgr/getAllAreaList">获取所有的区域信息</a>
 </div>
 </body>
 </html>
