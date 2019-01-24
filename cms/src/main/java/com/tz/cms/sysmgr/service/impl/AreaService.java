@@ -1,6 +1,6 @@
 package com.tz.cms.sysmgr.service.impl;
 
-import com.tz.cms.sysmgr.entity.PmSysArea;
+import com.tz.cms.sysmgr.entity.Area;
 import com.tz.cms.sysmgr.mapper.AreaMapper;
 import com.tz.cms.sysmgr.service.IAreaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class AreaService implements IAreaService {
     AreaMapper areaMapper;
 
     @Override
-    public List<PmSysArea> getAllAreaList() {
+    public List<Area> getAllAreaList() {
         return areaMapper.getAllAreaList();
     }
 }

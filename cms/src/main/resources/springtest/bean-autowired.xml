@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+    <bean id="car" class="com.tz.cms.test.entity.Car">
+        <property name="name" value="奔驰"></property>
+        <property name="pricie" value="120"></property>
+    </bean>
+
+    <bean id="adress" class="com.tz.cms.test.entity.Adress"
+          p:city="重庆" p:street="花卉园"></bean>
+
+    <!--自动注入byName 或者 byType-->
+    <bean id="person" class="com.tz.cms.test.entity.Person" p:name="jack" autowire="byName"></bean>
+
+</beans>

@@ -10,7 +10,7 @@
     </sql>
 
     <!--获取所有的区域-->
-    <select id="getAllAreaList" resultType="PmSysArea">
+    <select id="getAllAreaList" resultType="area">
         select
         <include refid="all_area_column"></include>
         from pm_sys_area
