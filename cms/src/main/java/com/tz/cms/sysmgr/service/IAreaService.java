@@ -17,4 +17,20 @@ public interface IAreaService {
      * @return List<Area>
      */
     List<Area> getAllAreaList();
+
+    /**
+     * 更新区域信息
+     * @param areaId
+     * @param remarks
+     * @return List<Area>
+     */
+    int updateAreaById(Integer areaId,String remarks);
+
+    /**
+     * 更新区域信息
+     * @param areaId
+     * @param remarks
+     * @return List<Area>
+     */
+    int updateAreaFlagById(Integer areaId,String remarks);
 }

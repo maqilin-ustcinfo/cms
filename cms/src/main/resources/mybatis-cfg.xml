@@ -8,6 +8,7 @@
     </settings>
     <typeAliases>
         <package name="com.tz.cms.sysmgr.entity"/>
+        <package name="com.tz.cms.sysmgr.dto"/>
     </typeAliases>
     <!-- 配置pageHelper分页插件 -->
     <plugins>

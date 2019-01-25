@@ -15,5 +15,116 @@
         <include refid="all_area_column"></include>
         from pm_sys_area
     </select>
+    <!--根据区域ID更新区域备注-->
+    <update id="updateAreaById">
+        update pm_sys_area set remarks = #{1} where area_id=#{0}
+    </update>
+    <!--根据区域ID更新区域删除标识-->
+    <update id="updateAreaFlagById">
+        update pm_sys_area set del_flag = #{1} where area_id=#{0}
+    </update>
+
+    <!--根据区域ID获取区域信息-->
+    <select id="getAreaById" parameterType="int" resultType="area">
+        select
+        <include refid="all_area_column"></include>
+        from pm_sys_area where del_flag='0' and area_id = #{areaId}
+    </select>
+
+    <!--统计-->
+    <select id="getCount" resultType="int">
+        select
+        count(0)
+        from pm_sys_area where del_flag='0'
+    </select>
+
+    <!--根据条件获取区域信息-->
+    <select id="getAreaListByRntity" parameterType="area" resultType="area">
+        select
+        <include refid="all_area_column"></include>
+        from pm_sys_area where
+        del_flag='0'
+        <if test="areaId != null">
+            and area_id = #{areaId}
+        </if>
+        <if test="areaName != null">
+            and area_name = #{areaName}
+        </if>
+        <if test="parentId != null">
+            and parent_id = #{parentId}
+        </if>
+        <if test="areaCode != null">
+            and area_code = #{areaCode}
+        </if>
+        <if test="updateBy != null">
+            and update_by = #{updateBy}
+        </if>
+    </select>
+
+    <!--利用包装类查询区域信息-->
+    <select id="getAreaListByDto" parameterType="areaDto" resultType="area">
+        select
+        <include refid="all_area_column"></include>
+        from pm_sys_area where
+        del_flag='0'
+        <if test="area.areaId != null">
+            and area_id = #{area.areaId}
+        </if>
+        <if test="area.areaName != null">
+            and area_name = #{area.areaName}
+        </if>
+        <if test="area.parentId != null">
+            and parent_id = #{area.parentId}
+        </if>
+        <if test="area.areaCode != null">
+            and area_code = #{area.areaCode}
+        </if>
+        <if test="area.updateBy != null">
+            and update_by = #{area.updateBy}
+        </if>
+    </select>
+
+    <!--新增区域-->
+    <insert id="addArea" parameterType="area">
+      insert into pm_sys_area(
+        <include refid="all_area_column"></include>
+        )values(#{areaId},#{areaName},#{parentId},#{sort},#{areaCode},#{updateBy},#{updateTime},#{remarks})
+    </insert>
+
+
+    <!--删除区域-->
+    <delete id="delAreaById" parameterType="int">
+        delete from pm_sys_area where area_id=#{areaId}
+    </delete>
+
+    <!--更新区域信息-->
+    <update id="updateArea" parameterType="area">
+        update pm_sys_area
+        <set>
+            <if test="areaName!=null">
+                area_name = #{areaName},
+            </if>
+            <if test="parentId!=null">
+                parent_id = #{parentId},
+            </if>
+            <if test="sort!=null">
+                sort = #{sort},
+            </if>
+            <if test="areaCode!=null">
+                area_code = #{areaCode},
+            </if>
+            <if test="updateBy!=null">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime!=null">
+                update_time = #{updateTime},
+            </if>
+            <if test="remarks!=null">
+                remarks = #{remarks},
+            </if>
+        </set>
+        where area_id = #{areaId}
+    </update>
+
 
 </mapper>

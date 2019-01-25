@@ -16,3 +16,21 @@
       通知可以将切面织入某些类的所有方法中，顾问将切面织入某些类的某些方法中。
       AOP目标就是将切面（系统系的服务）织入某些类的某些方法中。
       异常通知：捕获到方法抛出的异常之后才会执行，如果方法里面try-catch了不会执行异常通知的方法。
+  4.5 spring 事务：原子性atomicity，一致性consistency，隔离性isolation，持久性durability
+      传播属性：PROPAGATION_REQUIRED PROPAGATION_REQUIED_NEW
+      隔离级别：事务并发的问题（脏读，不可重复读，幻读）事务的隔离级别要得到底层数据库引擎的支持isolation
+      @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT)
+5.mybatis
+    parameterType 输入参数
+    * 简单类型的单个参数
+    需求:根据用户id查询用户信息
+    * 简单类型的多个参数
+    需求:通过登录名和密码验证用户是否存在
+    * 包装类对象作为输入参数进行查询
+    需求:根据界面输入的用户名称或者登录名称来查询符合条件的用户列表
+
+    resultType/resultMap对象
+    * 简单类型的输出  Integer String  Long
+    * 对象的输出
+    * HashMap的输出
+    * resultMap对象输出

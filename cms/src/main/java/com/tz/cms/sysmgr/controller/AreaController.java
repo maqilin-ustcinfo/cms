@@ -36,5 +36,4 @@ public class AreaController {
         return "success";
     }
 
-
 }
