@@ -4,6 +4,8 @@ import com.tz.cms.sysmgr.dto.AreaDto;
 import com.tz.cms.sysmgr.entity.Area;
 
 import java.util.List;
+import java.util.Map;
+
 /**
  * 区域 class
  *
@@ -83,4 +85,15 @@ public interface AreaMapper {
      */
     int getCount();
 
+
+    /**
+     * @return List
+     */
+    List<Map<String,Object>> getUserListMap();
+
+    /**
+     * getResultMap
+     * @return
+     */
+    List<Area> getResultMap();
 }

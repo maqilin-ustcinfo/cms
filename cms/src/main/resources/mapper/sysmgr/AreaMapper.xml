@@ -9,6 +9,17 @@
         area_id,area_name,parent_id,sort,area_code,update_by,update_time,remarks
     </sql>
 
+    <resultMap id="myResultMap" type="com.tz.cms.sysmgr.entity.Area">
+        <id property="areaId" column="area_id"></id>
+        <result property="areaName" column="area_name"></result>
+        <result property="parentId" column="parent_id"></result>
+        <result property="sort" column="sort"></result>
+        <result property="areaCode" column="area_code"></result>
+        <result property="updateBy" column="update_by"></result>
+        <result property="updateTime" column="update_time"></result>
+        <result property="remarks" column="remarks"></result>
+    </resultMap>
+
     <!--获取所有的区域-->
     <select id="getAllAreaList" resultType="area">
         select
@@ -71,7 +82,7 @@
             and area_id = #{area.areaId}
         </if>
         <if test="area.areaName != null">
-            and area_name = #{area.areaName}
+            and area_name like '%${area.areaName}%'
         </if>
         <if test="area.parentId != null">
             and parent_id = #{area.parentId}
@@ -82,6 +93,20 @@
         <if test="area.updateBy != null">
             and update_by = #{area.updateBy}
         </if>
+    </select>
+
+    <!--返回List<Map<String,Object>>-->
+    <select id="getUserListMap" resultType="map">
+      select
+      <include refid="all_area_column"></include>
+      from pm_sys_area
+    </select>
+
+    <!--返回getResultMap-->
+    <select id="getResultMap" resultMap="myResultMap">
+        select
+        <include refid="all_area_column"></include>
+        from pm_sys_area
     </select>
 
     <!--新增区域-->

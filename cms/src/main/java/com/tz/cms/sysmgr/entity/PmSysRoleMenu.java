@@ -14,7 +14,7 @@ public class PmSysRoleMenu implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/** pm_sys_role. */
-	private PmSysRole pmSysRole;
+	private Role pmSysRole;
 
 	/** pm_sys_menu. */
 	private PmSysMenu pmSysMenu;
@@ -31,7 +31,7 @@ public class PmSysRoleMenu implements Serializable {
 	 * @param pmSysRole
 	 *            pm_sys_role
 	 */
-	public void setPmSysRole(PmSysRole pmSysRole) {
+	public void setPmSysRole(Role pmSysRole) {
 		this.pmSysRole = pmSysRole;
 	}
 
@@ -40,7 +40,7 @@ public class PmSysRoleMenu implements Serializable {
 	 * 
 	 * @return pm_sys_role
 	 */
-	public PmSysRole getPmSysRole() {
+	public Role getPmSysRole() {
 		return this.pmSysRole;
 	}
 

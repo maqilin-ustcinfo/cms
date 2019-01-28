@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tz.cms.sysmgr.mapper.UserMapper">
+
+    <resultMap id="userDtoResultMap" type="userDto">
+        <id property="userId" column="user_id"></id>
+        <result column="user_name" property="userName"></result>
+        <result column="login_name" property="loginName"></result>
+        <result column="password" property="password"></result>
+        <result column="user_no" property="userNo"></result>
+        <result column="dept_id" property="deptId"></result>
+        <result column="email" property="email"></result>
+        <result column="phone" property="phone"></result>
+        <result column="update_by" property="updateBy"></result>
+        <result column="update_time" property="updateTime"></result>
+        <result column="remarks" property="remarks"></result>
+        <association property="dept" javaType="dept">
+            <id property="deptId" column="dept_id"></id>
+            <result property="deptName" column="dept_name"></result>
+            <result property="parentId" column="parent_id"></result>
+            <result property="sort" column="sort"></result>
+            <result property="deptCode" column="dept_code"></result>
+            <result property="master" column="master"></result>
+            <result property="address" column="address"></result>
+        </association>
+    </resultMap>
+
+    <resultMap id="userDtoResultMap2" type="userDto">
+        <id property="userId" column="user_id"></id>
+        <result column="user_name" property="userName"></result>
+        <result column="login_name" property="loginName"></result>
+        <result column="password" property="password"></result>
+        <result column="user_no" property="userNo"></result>
+        <result column="dept_id" property="deptId"></result>
+        <result column="email" property="email"></result>
+        <result column="phone" property="phone"></result>
+        <result column="update_by" property="updateBy"></result>
+        <result column="update_time" property="updateTime"></result>
+        <result column="remarks" property="remarks"></result>
+        <collection property="roleSets" ofType="role">
+            <id property="roleId" column="role_id"></id>
+            <result property="roleName" column="role_name"></result>
+        </collection>
+    </resultMap>
+
+    <!--通过userId获取得到user及其部门信息-->
+    <select id="getUserDtoById" resultMap="userDtoResultMap">
+        select u.user_id,u.user_name,u.login_name,u.password,u.user_no,
+        u.dept_id,u.email,u.phone,u.update_by,u.update_time,u.remarks,
+        d.dept_name,d.parent_id,d.sort,d.dept_code,d.master,d.address
+        from pm_sys_user u
+        inner join pm_sys_dept d
+        on u.dept_id = d.dept_id
+    </select>
+
+    <!--通过userId获取得到user及其角色-->
+    <select id="getUserDtoById2" resultMap="userDtoResultMap2">
+        select u.user_id,u.user_name,u.login_name,u.password,u.user_no,
+        u.dept_id,u.email,u.phone,u.update_by,u.update_time,u.remarks,
+        e.role_id,e.role_name
+        from pm_sys_user u,pm_sys_user_role d,pm_sys_role e
+        where u.user_id = d.user_id and d.role_id = e.role_id
+    </select>
+
+</mapper>

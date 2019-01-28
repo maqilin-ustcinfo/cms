@@ -34,3 +34,23 @@
     * 对象的输出
     * HashMap的输出
     * resultMap对象输出
+     #{}: 解析为一个 JDBC 预编译语句（prepared statement）的参数标记符,一个 #{} 被解析为一个参数占位符,防止sql注入。
+     ${}: 仅仅为一个纯碎的 string 替换,在动态 SQL 解析阶段将会进行变量替换
+     传入一个不改变的字符串或者传入数据库字段(列名)，例如要传入order by 后边的参数
+          这种情况下必须使用${}。
+     * <association property="dept" javaType="dept"> 一对一
+       <collection property="emps" ofType="employee"> 一对多
+     * 在resultMap中使用association或者collection，即可使用延迟加载。
+     * mybatis一级缓存在和spring整合的时候不存在，每次关闭sqlsession
+       二级：以namespace为单位
+       <!--开启二级缓存  -->
+      <setting name="cacheEnabled" value="true"/>
+      需要在mapper映射文件加入<cache/>标签才可以触发此映射文件开启二级缓存。
+      在映射文件用到的查询对象必须序列化。
+      	如果需要禁用某个statment的缓存，可以在这个statement里面单独设置 <useCache = "false">
+6 springmvc
+    6.1Restful风格的URL，对应的CRUD分别为：
+       创建：http://www.tz.edu/emp   method: POST
+       获取：http://www.tz.edu/emp/id   method: GET
+       修改：http://www.tz.edu/emp    method: PUT
+       删除：http://www.tz.edu/emp/id    method: DELETE

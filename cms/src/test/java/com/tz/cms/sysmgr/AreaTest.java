@@ -1,8 +1,10 @@
 package com.tz.cms.sysmgr;
 
 import com.tz.cms.sysmgr.dto.AreaDto;
+import com.tz.cms.sysmgr.dto.UserDto;
 import com.tz.cms.sysmgr.entity.Area;
 import com.tz.cms.sysmgr.mapper.AreaMapper;
+import com.tz.cms.sysmgr.mapper.UserMapper;
 import com.tz.cms.sysmgr.service.IAreaService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author maqilin
@@ -28,6 +31,9 @@ public class AreaTest {
 
     @Autowired
     AreaMapper areaMapper;
+
+    @Autowired
+    UserMapper userMapper;
 
     @Test
     @Transactional
@@ -75,6 +81,22 @@ public class AreaTest {
     }
 
     @Test
+    public void getResultMap(){
+        List<Area> areaList = areaMapper.getResultMap();
+        for(Area aa :areaList){
+            System.out.println(aa);
+        }
+    }
+
+    @Test
+    public void getUserListMap(){
+        List<Map<String,Object>> areaList = areaMapper.getUserListMap();
+        for(Map<String,Object> aa :areaList){
+            System.out.println("getUserListMap="+aa);
+        }
+    }
+
+    @Test
     public void getCount(){
         System.out.println("==="+areaMapper.getCount());
     }
@@ -111,6 +133,18 @@ public class AreaTest {
         a.setUpdateTime(new Date());
         int i = areaMapper.updateArea(a);
         System.out.println("i="+i);
+    }
+
+    @Test
+    public void testGetUserDtoById(){
+        UserDto userDto = userMapper.getUserDtoById(1);
+        System.out.println("userDto="+userDto);
+    }
+
+    @Test
+    public void testGetUserDtoById2(){
+        UserDto userDto = userMapper.getUserDtoById2(1);
+        System.out.println("userDto="+userDto);
     }
 
 }
