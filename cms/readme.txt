@@ -43,11 +43,16 @@
      * 在resultMap中使用association或者collection，即可使用延迟加载。
      * mybatis一级缓存在和spring整合的时候不存在，每次关闭sqlsession
        二级：以namespace为单位
-       <!--开启二级缓存  -->
+      <!--开启二级缓存  -->
       <setting name="cacheEnabled" value="true"/>
       需要在mapper映射文件加入<cache/>标签才可以触发此映射文件开启二级缓存。
       在映射文件用到的查询对象必须序列化。
       	如果需要禁用某个statment的缓存，可以在这个statement里面单独设置 <useCache = "false">
+     *  分页在service层这样写。
+        PageHelper.startPage(1, 10);
+        List<User> userList = userMapper.getUserList();
+        PageInfo<User> pageInfo = new PageInfo<User>(userList) ;
+        return pageInfo;
 6 springmvc
     6.1Restful风格的URL，对应的CRUD分别为：
        创建：http://www.tz.edu/emp   method: POST
