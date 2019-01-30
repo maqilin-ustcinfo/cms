@@ -1,17 +1,15 @@
-package com.tz.cms.sysmgr.mapper;
+package com.tz.cms.sysmgr.service;
 
 import com.tz.cms.sysmgr.entity.User;
 
 import java.util.List;
 
 /**
- * Demo class
- *
- * @author keriezhang
- * @date 2016/10/31
+ * @author maqilin
+ * @description:
+ * @date 2019/1/30 11:35
  */
-public interface UserMapper {
-
+public interface IUserService {
     /**
      * 新增用户
      * @param user
@@ -54,6 +52,4 @@ public interface UserMapper {
      * @return List<User>
      */
     List<User> queryUserList(User user);
-
-
 }
