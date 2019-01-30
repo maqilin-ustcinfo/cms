@@ -1,5 +1,6 @@
 package com.tz.cms.sysmgr.mapper;
 
+import com.tz.cms.sysmgr.dto.UserDto;
 import com.tz.cms.sysmgr.entity.User;
 
 import java.util.List;
@@ -46,7 +47,7 @@ public interface UserMapper {
      * @param userId
      * @return
      */
-    User queryUserById(Integer userId);
+    UserDto queryUserById(Integer userId);
 
     /**
      * 查询用户列表

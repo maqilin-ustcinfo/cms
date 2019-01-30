@@ -153,11 +153,13 @@
   </update>
 
   <!--通过用户ID查询用户-->
-  <select id="queryUserById" resultType="user" parameterType="int" >
+  <select id="queryUserById" resultType="userDto" parameterType="int" >
     select
-    <include refid="Base_Column_List" />
-    from pm_sys_user
-    where user_id = #{userId,jdbcType=INTEGER}
+    a.user_id, a.dept_id, a.login_name, a.password, a.user_no, a.user_name, a.email, a.phone, a.mobile,
+    a.update_by, a.update_date, a.remarks,b.name as dept_name
+    from pm_sys_user a
+    left join pm_sys_dept b on a.dept_id = b.id
+    where a.user_id = #{userId,jdbcType=INTEGER}
   </select>
 
   <!--查询用户列表-->
@@ -166,39 +168,39 @@
     <include refid="Base_Column_List" />
     from pm_sys_user
     <where>
-      <if test="userId != null" >
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="deptId != null" >
-        dept_id = #{deptId,jdbcType=INTEGER},
-      </if>
-      <if test="loginName != null" >
-        login_name like '%${loginName,jdbcType=VARCHAR}%',
-      </if>
-      <if test="userNo != null" >
-        user_no = #{userNo,jdbcType=VARCHAR},
-      </if>
-      <if test="userName != null" >
-        user_name like '%${userName,jdbcType=VARCHAR}%',
-      </if>
-      <if test="email != null" >
-        email = #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null" >
-        phone = #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="mobile != null" >
-        mobile = #{mobile,jdbcType=VARCHAR},
-      </if>
-      <if test="updateBy != null" >
-        update_by = #{updateBy,jdbcType=VARCHAR},
-      </if>
-      <if test="updateDate != null" >
-        update_date = #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="remarks != null" >
-        remarks = #{remarks,jdbcType=VARCHAR},
-      </if>
+        <if test="userId != null" >
+          and user_id = #{userId,jdbcType=INTEGER}
+        </if>
+        <if test="deptId != null" >
+          and dept_id = #{deptId,jdbcType=INTEGER}
+        </if>
+        <if test="loginName != null" >
+          and login_name = #{loginName,jdbcType=VARCHAR}
+        </if>
+        <if test="userNo != null" >
+          and user_no = #{userNo,jdbcType=VARCHAR}
+        </if>
+        <if test="userName != null" >
+          and user_name like '%${userName,jdbcType=VARCHAR}%'
+        </if>
+        <if test="email != null" >
+          and email = #{email,jdbcType=VARCHAR}
+        </if>
+        <if test="phone != null" >
+          and phone = #{phone,jdbcType=VARCHAR}
+        </if>
+        <if test="mobile != null" >
+          and mobile = #{mobile,jdbcType=VARCHAR}
+        </if>
+        <if test="updateBy != null" >
+          and update_by = #{updateBy,jdbcType=VARCHAR}
+        </if>
+        <if test="updateDate != null" >
+          and update_date = #{updateDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="remarks != null" >
+          and remarks = #{remarks,jdbcType=VARCHAR}
+        </if>
     </where>
   </select>
 

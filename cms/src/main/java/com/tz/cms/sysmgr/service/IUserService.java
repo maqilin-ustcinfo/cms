@@ -52,4 +52,12 @@ public interface IUserService {
      * @return List<User>
      */
     List<User> queryUserList(User user);
+
+    /**
+     * 登陆
+     * @param loginName
+     * @param password
+     * @return
+     */
+    User loginUser(String loginName,String password);
 }

@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <!-- saved from url=(0027)http://localhost:8080/index -->
 <html style="overflow: hidden;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>潭州OA系统</title>
+	<title>cms系统</title>
 	
 <meta charset="utf-8">
 <meta name="renderer" content="webkit">
@@ -116,17 +116,16 @@
 	<div id="main" style="width: auto;">
 		<div id="header" class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
-				<div class="brand"><span id="productName">潭州OA系统</span></div>
+				<div class="brand"><span id="productName">cms系统</span></div>
 				<ul id="userControl" class="nav pull-right">
-
 					<li id="userInfo" class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#" title="个人信息">您好, 系统超级管理员&nbsp;</a>
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#" title="个人信息">您好,${user.userName}&nbsp;</a>
 						<ul class="dropdown-menu">
-							<li><a href="userInfo.html" target="mainFrame"><i class="icon-user"></i>&nbsp; 个人信息</a></li>
-							<li><a href="changePwd.html" target="mainFrame"><i class="icon-lock"></i>&nbsp;  修改密码</a></li>
+							<li><a href="sysmgr/user/gotoUserInfo" target="mainFrame"><i class="icon-user"></i>&nbsp; 个人信息</a></li>
+							<li><a href="sysmgr/user/gotoChangePwd" target="mainFrame"><i class="icon-lock"></i>&nbsp; 修改密码</a></li>
 						</ul>
 					</li>
-					<li><a href="login.html" title="退出登录">退出</a></li>
+					<li><a href="${ctx}/logout" title="退出登录">退出</a></li>
 					<li>&nbsp;</li>
 				</ul>
 

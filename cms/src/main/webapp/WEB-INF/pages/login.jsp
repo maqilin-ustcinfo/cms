@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <%@include file = "/WEB-INF/pages/include/head.jsp" %>
-<title>潭州OA系统</title>
+<title>cms系统</title>
 <style type="text/css">
 html,body{height:100%;}
 /*canvas开始*/
@@ -38,7 +38,7 @@ h2{font-family:"微软雅黑";font-size:24px;color:#B94846;margin-bottom:28px;}
 		<div class="well col-md-12 center">
 			<div class="title" style="padding: 5px;text-align:center;">
 				<img src="jsAndCss/images/logo5.png">
-				<h2>潭州OA系统</h2>
+				<h2>cms系统</h2>
  			</div>
  		 
 			<div id="messageBoxLogin" class="alert alert-error ${empty loginFlag ? 'hide' :''} ">

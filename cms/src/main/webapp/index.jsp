@@ -1,60 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-         pageEncoding="utf-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>首页</title>
-    <style>
-        *{
-            padding:0;
-            margin:0;
-            font-family:"微软雅黑";
-        }
-        .header{
-            height:72px;
-            background:#458fce ;
-        }
-        .header .logo{
-            color:#fff ;
-            line-height:70px;
-            font-size:30px;
-            margin-left:20px;
-            display:inline-block;
-            text-align:center;
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 
-        }
-        a {
-            color: #000 ;
-            text-decoration: none ;
-        }
-        .header .login{
-            float:right;
-            color:#fff ;
-            line-height:72px;
-            margin-right:2px;
-            display:inline-block;
-        }
-        .banner{
-            height:380px;
-            background: #ddd;
-        }
-        .body{
-            border: 1px solid red;
-        }
-    </style>
-</head>
-<body>
-<div class="header">
-    <div class="logo">web实践</div>
-    <div class ="login">
-        <a href ="javascript:void(0)">登录</a>
-        <span>|</span>
-        <a href ="javascript:void(0)">故事</a>
-    </div>
-</div>
-<div class="body">
-    . <a href="sysmgr/getAllAreaList">获取所有的区域信息</a>
-</div>
-</body>
-</html>
+<%
+String path = request.getContextPath()	;
+response.sendRedirect(path+"/gotoLogin");
+%>
