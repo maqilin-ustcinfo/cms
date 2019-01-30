@@ -2,7 +2,10 @@ package com.tz.cms.sysmgr.controller;
 
 import com.tz.cms.sysmgr.dto.UserDto;
 import com.tz.cms.sysmgr.entity.User;
+import com.tz.cms.sysmgr.service.IUserService;
 import com.tz.cms.sysmgr.service.impl.UserService;
+
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * @author maqilin
@@ -25,7 +30,7 @@ public class UserController {
     private static Logger logger = Logger.getLogger(UserController.class);
 
     @Autowired
-    UserService userService;
+    IUserService userService;
 
 
     @RequestMapping("/gotoUserInfo")
@@ -61,6 +66,35 @@ public class UserController {
             resultMap.put("result","保存成功");
         }else{
             resultMap.put("result","保存失败");
+        }
+        return resultMap;
+    }
+    
+    /**
+     * 更新密码
+     * @param oldPassword 旧密码
+     * @param newPassword 新密码
+     * @return
+     */
+    @RequestMapping("/saveChangePwd")
+    @ResponseBody
+    public Map<String,Object> saveChangePwd(String oldPassword,String newPassword,HttpSession session){
+        Map<String,Object> resultMap = new HashMap<>();
+
+        User user = (User)session.getAttribute("user");
+        if(user == null){
+        	resultMap.put("result","未获取登陆用户");
+        	return resultMap;
+        }
+        if(StringUtils.isNotEmpty(oldPassword) 
+        		&& StringUtils.isNotEmpty(newPassword)){
+        	if(userService.updateUserPsd(user,oldPassword,newPassword)){
+        		resultMap.put("result","修改密码成功");
+        	}else{
+        		resultMap.put("result","旧密码错误，修改密码失败");
+        	}
+        }else{
+        	resultMap.put("result","旧密码或者新密码不能为空");
         }
         return resultMap;
     }

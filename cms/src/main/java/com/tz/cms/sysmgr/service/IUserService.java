@@ -1,5 +1,6 @@
 package com.tz.cms.sysmgr.service;
 
+import com.tz.cms.sysmgr.dto.UserDto;
 import com.tz.cms.sysmgr.entity.User;
 
 import java.util.List;
@@ -37,14 +38,14 @@ public interface IUserService {
      * @param psd
      * @return
      */
-    int updateUserPsd(Integer userId,String psd);
+    boolean updateUserPsd(User user, String oldPsd,String newPsd);
 
     /**
      * 通过用户ID查询用户
      * @param userId
      * @return
      */
-    User queryUserById(Integer userId);
+    UserDto queryUserById(Integer userId);
 
     /**
      * 查询用户列表

@@ -41,11 +41,14 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public int updateUserPsd(Integer userId, String psd) {
-
-        int j = userMapper.updateUserPsd(userId,psd);
-
-        return j;
+    public boolean updateUserPsd(User user, String oldPsd,String newPsd) {
+    	boolean flag = false;
+    	// 判断旧密码是否正确
+    	if(vaildatePassword(oldPsd,user.getPassword())){
+    		userMapper.updateUserPsd(user.getUserId(),encyptPassword(newPsd));
+    		flag = true;
+    	}
+        return flag;
     }
 
     @Override
