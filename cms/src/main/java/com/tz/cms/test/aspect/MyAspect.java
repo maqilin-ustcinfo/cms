@@ -12,12 +12,12 @@ import org.aspectj.lang.annotation.Aspect;
 @Aspect
 public class MyAspect {
 
-    @AfterReturning(value = "execution(public * com.tz.cms.test.service.impl.AreaServiceTest.getAreaAllList())",returning = "result")
+    //@AfterReturning(value = "execution(public * com.tz.cms.test.service.impl.AreaServiceTest.getAreaAllList())",returning = "result")
     public void afterReturning(Object result){
         System.out.println("后置通知result=="+result);
     }
 
-    @AfterThrowing(value = "execution(public * com.tz.cms.test.service.impl.AreaServiceTest.getAreaAllList())",throwing = "e")
+    //@AfterThrowing(value = "execution(public * com.tz.cms.test.service.impl.AreaServiceTest.getAreaAllList())",throwing = "e")
     public void afterThrowing(Exception e){
         System.out.println("异常通知="+e.getMessage());
     }
