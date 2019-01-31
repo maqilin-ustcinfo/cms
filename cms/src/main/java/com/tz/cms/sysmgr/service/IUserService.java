@@ -34,8 +34,9 @@ public interface IUserService {
 
     /**
      * 修改密码
-     * @param userId
-     * @param psd
+     * @param user
+     * @param oldPsd
+     * @param newPsd
      * @return
      */
     boolean updateUserPsd(User user, String oldPsd,String newPsd);

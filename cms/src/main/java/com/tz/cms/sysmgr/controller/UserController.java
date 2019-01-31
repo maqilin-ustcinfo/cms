@@ -1,5 +1,6 @@
 package com.tz.cms.sysmgr.controller;
 
+import com.tz.cms.framework.util.UserUtils;
 import com.tz.cms.sysmgr.dto.UserDto;
 import com.tz.cms.sysmgr.entity.User;
 import com.tz.cms.sysmgr.service.IUserService;
@@ -50,7 +51,7 @@ public class UserController {
     @RequestMapping("/getUserInfoById")
     @ResponseBody
     public UserDto queryUserInfo(){
-        UserDto user = userService.queryUserById(1);
+        UserDto user = userService.queryUserById(UserUtils.getCurrrentUserId());
         return user;
     }
 
@@ -62,7 +63,7 @@ public class UserController {
     @ResponseBody
     public Map<String,Object> saveSelfUserInfo(@RequestBody  User user){
         Map<String,Object> resultMap = new HashMap<>();
-        if(userService.updateUser(user)>0){
+        if(userService.updateUser(user) > 0){
             resultMap.put("result","保存成功");
         }else{
             resultMap.put("result","保存失败");

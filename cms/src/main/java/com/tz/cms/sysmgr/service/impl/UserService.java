@@ -1,6 +1,7 @@
 package com.tz.cms.sysmgr.service.impl;
 
 import com.tz.cms.framework.util.EncryptUtil;
+import com.tz.cms.framework.util.UserUtils;
 import com.tz.cms.sysmgr.dto.UserDto;
 import com.tz.cms.sysmgr.entity.User;
 import com.tz.cms.sysmgr.mapper.UserMapper;
@@ -9,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,6 +39,8 @@ public class UserService implements IUserService {
 
     @Override
     public int updateUser(User user) {
+        user.setUpdateBy(UserUtils.getCurrrentUserId()+"");
+        user.setUpdateDate(new Date());
         return userMapper.updateUser(user);
     }
 
