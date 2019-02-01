@@ -17,6 +17,13 @@ public interface IMenuService {
 	 * @return
 	 */
 	List<Menu> getAllMenuList();
+
+	/**
+	 * 根据parentId得到子菜单
+	 * @param parentId
+	 * @return
+	 */
+	List<Menu> getChildNodeByParentId(Long parentId);
 	
 	/**
 	 *        统计一个节点下的子节点数量

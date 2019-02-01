@@ -66,7 +66,7 @@
 		$(document).ready(function(){
 			//此地方要稍微注意下，考虑不将本身以及下级节点显示出来，怕选择错误，造成连环套
 			var menuId = $("#id").val();
-			$.get("${ctx}/sysmgr/menu/getParentMenuTreeData.action?menuId="+menuId,
+			$.get("${ctx}/sysmgr/menu/getParentMenuTreeData?menuId="+menuId,
 					function(zNodes){
 						//初始化数结构
 						//var jsonObj= $.parseJSON(zNodes.jsonObj);
@@ -149,7 +149,7 @@
 
 				<div class="input-append">
 					<input id="parentId" name="parentId" class="required" type="hidden" value="${menu.parentId}"/>
-					<input id="parentName" name="parenName" readonly="readonly" type="text" value="${menu.parentName}"  style=""/>
+					<input id="parentName" name="parentName" readonly="readonly" type="text" value="${menu.parentName}"  style=""/>
 						<a id="menuButton" href="javascript:showMenu();" class="btn" style="">
 						&nbsp;<i class="icon-search" ></i>&nbsp;</a>&nbsp;&nbsp;
 				</div>

@@ -6,6 +6,8 @@ import java.util.Date;
 import com.tz.cms.framework.dto.TreeDto;
 
 public class Menu extends TreeDto{
+
+	private String parentName;
 	
     private BigDecimal sort;
 
@@ -24,6 +26,14 @@ public class Menu extends TreeDto{
     private Date updateDate;
 
     private String remarks;
+
+	public String getParentName() {
+		return parentName;
+	}
+
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
+	}
 
 	public BigDecimal getSort() {
 		return sort;

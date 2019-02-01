@@ -7,20 +7,28 @@ import com.tz.cms.sysmgr.entity.Menu;
 public interface MenuMapper {
 	
 	/**
-	 *     查询菜单By id
+	 * 查询菜单By id
 	 * @param id
 	 * @return
 	 */
 	Menu selectByPrimaryKey(Long id);
+
+
+	/**
+	 * 根据parentId得到子菜单
+	 * @param parentId
+	 * @return
+	 */
+	List<Menu> getChildNodeByParentId(Long parentId);
 	
 	/**
-	     *   查询所有菜单
+	 * 查询所有菜单
 	 * @return
 	 */
 	List<Menu> getAllMenuList();
 	
 	/**
-	 *        统计一个节点下的子节点数量
+	 * 统计一个节点下的子节点数量
 	 * @param parentId
 	 * @return
 	 */
@@ -34,7 +42,7 @@ public interface MenuMapper {
 	Integer insertSelective(Menu record);
 
 	/**
-	   *      删除菜单
+	 * 删除菜单
 	 * @param id
 	 * @return
 	 */
@@ -42,7 +50,7 @@ public interface MenuMapper {
 
     
     /**
-                  * 更新菜单
+	 * 更新菜单
      * @param record
      * @return
      */

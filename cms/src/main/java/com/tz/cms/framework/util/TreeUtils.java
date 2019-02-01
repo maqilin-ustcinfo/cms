@@ -1,9 +1,15 @@
 package com.tz.cms.framework.util;
 
 import java.util.List;
+import java.util.Map;
 
 import com.tz.cms.sysmgr.entity.Menu;
-
+/**
+ * Demo class
+ *
+ * @author keriezhang
+ * @date 2016/10/31
+ */
 public class TreeUtils {
 	
 	
@@ -28,22 +34,21 @@ public class TreeUtils {
 			}
 		}
 	}
+
 	
-	public static void sortMenuList(List<Menu> menuList,List<Menu> sortMenuList,
-					Long parentId){
-			for(Menu menu :menuList){
-			if(menu.getParentId()!=null&&menu.getParentId().equals(parentId)){
-			sortMenuList.add(menu);
-			for(Menu childMenu: menuList){
-				if(childMenu.getParentId()!=null&&childMenu.getParentId().equals(parentId)){
-					//递归
-					sortMenuList(sortMenuList,menuList,menu.getId());
-					break;
-				}
+
+
+	/**
+	 * 找到所有的子代放入Map
+	 */
+	public static void getAllChildMap(List<Menu> menuList, Map<Long,Menu> map,Long id){
+		for(Menu menu : menuList){
+			// 所有子代
+			if(menu.getParentId().longValue() == id.longValue()){
+				map.put(menu.getId(),menu);
+				getAllChildMap(menuList,map,menu.getId());
 			}
-			
-			}
-			}		
 		}
+	}
 
 }
