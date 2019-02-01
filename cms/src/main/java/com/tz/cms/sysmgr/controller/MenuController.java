@@ -32,7 +32,7 @@ public class MenuController {
 		// 查询所有的菜单
 		List<Menu> menuList = menuService.getAllMenuList();
 	    List<Menu> sortMenuList = new ArrayList<Menu>();
-	    TreeUtils.sortTree(menuList, sortMenuList, new Long(0L));
+	    TreeUtils.sortTreeNew(menuList, sortMenuList, new Long(0L));
 		model.addAttribute("menuList", sortMenuList);
 		return "sysmanage/menu/menuList";
 	}
@@ -78,7 +78,7 @@ public class MenuController {
 		if(menuId != null){
 			Map<Long,Menu> resultMap = new HashMap<Long,Menu>();
 			// 子代
-			TreeUtils.getAllChildMap(menuList,resultMap,menuId);
+			TreeUtils.getAllChildMapNew(menuList,resultMap,menuId);
 			// 本身
 			resultMap.put(menuId,menuService.selectByPrimaryKey(menuId));
 			// 从menuList去除这些数据
