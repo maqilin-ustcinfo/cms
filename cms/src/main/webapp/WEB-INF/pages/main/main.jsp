@@ -165,7 +165,7 @@
 						<li class=""><a data-href=".menu3-17" href="${ctx}/sysmgr/dept/gotoDeptList" target="mainFrame"><i class="icon-th-large"></i>&nbsp;机构管理</a>
 							<ul class="nav nav-list hide" style="margin:0;padding-right:0;">
 							</ul></li>
-						<li class=""><a data-href=".menu3-14" href="areaList.html" target="mainFrame"><i class="icon-th"></i>&nbsp;区域管理</a>
+						<li class=""><a data-href=".menu3-14" href="${ctx}/sysmgr/area/gotoAreaList" target="mainFrame"><i class="icon-th"></i>&nbsp;区域管理</a>
 							<ul class="nav nav-list hide" style="margin:0;padding-right:0;">
 							
 							</ul></li></ul>
