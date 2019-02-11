@@ -128,16 +128,6 @@
 					<li><a href="${ctx}/logout" title="退出登录">退出</a></li>
 					<li>&nbsp;</li>
 				</ul>
-
-				<div class="nav-collapse">
-					<ul id="menu" class="nav" style="*white-space:nowrap;float:none;">
-								<li class="menu">
-										<a class="menu" href="javascript:" data-href="#" data-id="27"><span>我的面板</span></a>
-								</li>
-								<li class="menu active">
-										<a class="menu" href="javascript:" data-href="#" data-id="2"><span>系统设置</span></a>
-					</ul>
-				</div><!--/.nav-collapse -->
 			</div>
 	    </div>
 	    <div class="container-fluid">
@@ -172,7 +162,7 @@
 						<li class="active"><a data-href=".menu3-20" href="userMgr.html" target="mainFrame"><i class="icon-user icon-white"></i>&nbsp;用户管理</a>
 							<ul class="nav nav-list hide" style="margin:0;padding-right:0;">
 							</ul></li>
-						<li class=""><a data-href=".menu3-17" href="officeMgr.html" target="mainFrame"><i class="icon-th-large"></i>&nbsp;机构管理</a>
+						<li class=""><a data-href=".menu3-17" href="${ctx}/sysmgr/dept/gotoDeptList" target="mainFrame"><i class="icon-th-large"></i>&nbsp;机构管理</a>
 							<ul class="nav nav-list hide" style="margin:0;padding-right:0;">
 							</ul></li>
 						<li class=""><a data-href=".menu3-14" href="areaList.html" target="mainFrame"><i class="icon-th"></i>&nbsp;区域管理</a>

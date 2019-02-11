@@ -43,14 +43,7 @@ public class TreeUtils {
 			TreeDto tree = (TreeDto)treeList.get(i);
 			if(parentId.equals(tree.getParentId())) {
 				sortTreeDtoList.add((T)tree);
-				for(int j=0;i<treeList.size();j++){
-					TreeDto childTree = (TreeDto)treeList.get(j);
-					if(parentId.equals(childTree.getParentId())){
-						sortTreeNew(treeList,sortTreeDtoList,tree.getId());
-						break;
-					}
-				}
-				
+				sortTreeNew(treeList,sortTreeDtoList,tree.getId());
 			}
 		}
 	}
