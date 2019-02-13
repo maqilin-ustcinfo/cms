@@ -13,7 +13,7 @@
  	 		if(confirm("您确定要删除此角色吗?")){  	 			 
 	 		  $.ajax({
 					type:'post',//请求方式
-					url:'${ctx}/sysmgr/role/delRole.action', 
+					url:'${ctx}/sysmgr/role/delRole',
 					dataType:'json', //有几种格式 xml html json text 等常用
 					//data传值的另外一种方式 form的序列化
 					data: {"roleId":roleId},//传递给服务器的参数				

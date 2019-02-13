@@ -183,7 +183,7 @@
 						<li class=""><a data-href=".menu3-4" href="${ctx}/sysmgr/menu/gotoMenuList" target="mainFrame"><i class="icon-list-alt"></i>&nbsp;菜单管理</a>
 							<ul class="nav nav-list hide" style="margin:0;padding-right:0;">
 							</ul></li>
-						<li class=""><a data-href=".menu3-7" href="roleList.html" target="mainFrame"><i class="icon-lock"></i>&nbsp;角色管理</a>
+						<li class=""><a data-href=".menu3-7" href="${ctx}/sysmgr/role/gotoRoleList" target="mainFrame"><i class="icon-lock"></i>&nbsp;角色管理</a>
 							<ul class="nav nav-list hide" style="margin:0;padding-right:0;">
 							</ul></li>
 						<li class=""><a data-href=".menu3-10" href="${ctx}/sysmgr/dict/gotoDictList" target="mainFrame"><i class="icon-th-list"></i>&nbsp;字典管理</a>

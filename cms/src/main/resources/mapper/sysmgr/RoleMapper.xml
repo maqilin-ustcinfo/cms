@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tz.cms.sysmgr.mapper.RoleMapper" >
+
+  <resultMap id="BaseResultMap" type="com.tz.cms.sysmgr.entity.Role" >
+    <id column="id" property="id" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, name, update_by, update_date, remarks
+  </sql>
+
+  <!--查询所有角色列表-->
+  <select id="getAllRoleList" resultType="role">
+    select
+    <include refid="Base_Column_List" />
+    from pm_sys_role
+  </select>
+
+  <!--通过id查询角色-->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="long" >
+    select 
+    <include refid="Base_Column_List" />
+    from pm_sys_role where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <!--查询角色菜单-->
+  <select id="getRoleToMenuById" parameterType="long" resultType="roleToMenu">
+    select role_id,menu_id from pm_sys_role_menu where role_id = #{roleId}
+  </select>
+
+  <!--查询角色部门-->
+  <select id="getRoleToDeptById" parameterType="long" resultType="roleToDept">
+    select role_id,dept_id from pm_sys_role_dept where role_id = #{roleId}
+  </select>
+
+  <!--查询角色区域-->
+  <select id="getRoleToAreaById" parameterType="long" resultType="roleToArea">
+    select role_id,area_id from pm_sys_role_area where role_id = #{roleId}
+  </select>
+
+  <!--新增角色-->
+  <insert id="insertSelective" parameterType="com.tz.cms.sysmgr.entity.Role" >
+    <selectKey keyProperty="id" resultType="long" order="AFTER">
+        SELECT LAST_INSERT_ID() as id
+    </selectKey>
+    insert into pm_sys_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <!--增加角色-菜单-->
+  <insert id="batchInsertRoleToMenu" parameterType="roleToMenu">
+    insert into pm_sys_role_menu(role_id,menu_id) values
+    <foreach collection="list" separator="," item="i">
+      (#{i.roleId},#{i.menuId})
+    </foreach>
+  </insert>
+
+  <!--增加角色-部门-->
+  <insert id="batchInsertRoleToDept" parameterType="roleToDept">
+    insert into pm_sys_role_dept(role_id,dept_id) values
+    <foreach collection="list" separator="," item="i">
+      (#{i.roleId},#{i.deptId})
+    </foreach>
+  </insert>
+
+  <!--增加角色-区域-->
+  <insert id="batchInsertRoleToArea" parameterType="roleToArea">
+    insert into pm_sys_role_area(role_id,area_id) values
+    <foreach collection="list" separator="," item="i">
+      (#{i.roleId},#{i.areaId})
+    </foreach>
+  </insert>
+
+  <!--删除角色-->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from pm_sys_role where id = #{id}
+  </delete>
+
+  <!--删除角色-菜单-->
+  <delete id="deleteRoleToMenu" parameterType="java.lang.Long" >
+    delete from pm_sys_role_menu where role_id = #{roleId}
+  </delete>
+
+  <!--删除角色-部门-->
+  <delete id="deleteRoleToDept" parameterType="java.lang.Long" >
+    delete from pm_sys_role_dept where role_id = #{roleId}
+  </delete>
+
+  <!--删除角色-区域-->
+  <delete id="deleteRoleToArea" parameterType="java.lang.Long" >
+    delete from pm_sys_role_area where role_id = #{roleId}
+  </delete>
+
+  <!--修改角色-->
+  <update id="updateByPrimaryKeySelective" parameterType="com.tz.cms.sysmgr.entity.Role" >
+    update pm_sys_role
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+</mapper>
