@@ -82,7 +82,11 @@ public class RoleService implements IRoleService {
                 roleToMenu.setMenuId(key);
                 roleToMenuList.add(roleToMenu);
             }
-            roleMapper.batchInsertRoleToMenu(roleToMenuList);
+            
+            if(roleToMenuList.size() > 0){
+            	roleMapper.batchInsertRoleToMenu(roleToMenuList);
+            }
+           
 
             // 增加角色-部门
             Map<Long,Long> roleToDepts = roleDto.getDeptIds();
@@ -93,7 +97,11 @@ public class RoleService implements IRoleService {
                 roleToDept.setDeptId(key);
                 roleToDeptList.add(roleToDept);
             }
-            roleMapper.batchInsertRoleToDept(roleToDeptList);
+            
+            if(roleToDeptList.size() > 0){
+            	roleMapper.batchInsertRoleToDept(roleToDeptList);
+            }
+            
 
             // 增加角色-区域
             Map<Long,Long> roleToAreas = roleDto.getAreaIds();
@@ -104,7 +112,10 @@ public class RoleService implements IRoleService {
                 roleToArea.setAreaId(key);
                 roleToAreaList.add(roleToArea);
             }
-            roleMapper.batchInsertRoleToArea(roleToAreaList);
+            if(roleToAreaList.size() > 0){
+            	roleMapper.batchInsertRoleToArea(roleToAreaList);
+            }
+            
         }
 
         return i;
