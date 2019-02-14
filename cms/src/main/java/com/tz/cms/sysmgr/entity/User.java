@@ -9,6 +9,10 @@ public class User implements Serializable {
 
     private Integer deptId;
 
+    private String deptName;
+
+    private String roleIdList;
+
     private String loginName;
 
     private String password;
@@ -28,6 +32,22 @@ public class User implements Serializable {
     private Date updateDate;
 
     private String remarks;
+
+    public String getRoleIdList() {
+        return roleIdList;
+    }
+
+    public void setRoleIdList(String roleIdList) {
+        this.roleIdList = roleIdList;
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
 
     public Integer getUserId() {
         return userId;
@@ -123,23 +143,5 @@ public class User implements Serializable {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", deptId=" + deptId +
-                ", loginName='" + loginName + '\'' +
-                ", password='" + password + '\'' +
-                ", userNo='" + userNo + '\'' +
-                ", userName='" + userName + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", updateBy='" + updateBy + '\'' +
-                ", updateDate=" + updateDate +
-                ", remarks='" + remarks + '\'' +
-                '}';
     }
 }

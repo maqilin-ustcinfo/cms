@@ -22,8 +22,19 @@
     update_by, update_date, remarks
   </sql>
 
+  <!--批量增加用户角色对应表-->
+  <insert id="addUserRoleBatch" parameterType="userToRole">
+    insert into pm_sys_user_role(user_id,role_id)values
+    <foreach collection="list" item="item" separator="," index="index">
+      (#{item.userId},#{item.roleId})
+    </foreach>
+  </insert>
+
   <!--新增用户-->
   <insert id="addUser" parameterType="com.tz.cms.sysmgr.entity.User" >
+    <selectKey keyProperty="userId" resultType="int" order="AFTER">
+      SELECT LAST_INSERT_ID() as userId
+    </selectKey>
     insert into pm_sys_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
@@ -103,6 +114,11 @@
     </trim>
   </insert>
 
+  <!--批量删除用户角色对应表-->
+  <insert id="delUserRoleByUserId" parameterType="long">
+    delete from pm_sys_user_role where user_id = #{userId}
+  </insert>
+
   <!--删除用户-->
   <delete id="delUser" parameterType="java.lang.Integer" >
     delete from pm_sys_user
@@ -162,6 +178,48 @@
     where a.user_id = #{userId,jdbcType=INTEGER}
   </select>
 
+  <!--查询用户列表,返回包装类-->
+  <select id="queryUserDtoList" parameterType="user" resultType="userDto">
+    select a.user_id, a.dept_id,b.name as dept_name, a.login_name, a.password, a.user_no, a.user_name, a.email, a.phone, a.mobile,
+    a.update_by, a.update_date, a.remarks from pm_sys_user a
+    left join pm_sys_dept b on a.dept_id = b.id
+    <where>
+      <if test="userId != null" >
+        and a.user_id = #{userId}
+      </if>
+      <if test="deptId != null" >
+        and a.dept_id = #{deptId}
+      </if>
+      <if test="loginName != null" >
+        and a.login_name = #{loginName,jdbcType=VARCHAR}
+      </if>
+      <if test="userNo != null" >
+        and a.user_no = #{userNo,jdbcType=VARCHAR}
+      </if>
+      <if test="userName != null" >
+        and a.user_name like '%${userName}%'
+      </if>
+      <if test="email != null" >
+        and a.email = #{email,jdbcType=VARCHAR}
+      </if>
+      <if test="phone != null" >
+        and a.phone = #{phone,jdbcType=VARCHAR}
+      </if>
+      <if test="mobile != null" >
+        and a.mobile = #{mobile,jdbcType=VARCHAR}
+      </if>
+      <if test="updateBy != null" >
+        and a.update_by = #{updateBy,jdbcType=VARCHAR}
+      </if>
+      <if test="updateDate != null" >
+        and a.update_date = #{updateDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="remarks != null" >
+        and a.remarks = #{remarks,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
   <!--查询用户列表-->
   <select id="queryUserList" resultType="user"  parameterType="user" >
     select
@@ -169,10 +227,10 @@
     from pm_sys_user
     <where>
         <if test="userId != null" >
-          and user_id = #{userId,jdbcType=INTEGER}
+          and user_id = #{userId}
         </if>
         <if test="deptId != null" >
-          and dept_id = #{deptId,jdbcType=INTEGER}
+          and dept_id = #{deptId}
         </if>
         <if test="loginName != null" >
           and login_name = #{loginName,jdbcType=VARCHAR}
@@ -181,7 +239,7 @@
           and user_no = #{userNo,jdbcType=VARCHAR}
         </if>
         <if test="userName != null" >
-          and user_name like '%${userName,jdbcType=VARCHAR}%'
+          and user_name like '%${userName}%'
         </if>
         <if test="email != null" >
           and email = #{email,jdbcType=VARCHAR}
@@ -202,6 +260,11 @@
           and remarks = #{remarks,jdbcType=VARCHAR}
         </if>
     </where>
+  </select>
+
+  <!--通过用户id获取角色信息-->
+  <select id="queryUserRoleByUserId" parameterType="long" resultType="userToRole">
+      select user_id,role_id from pm_sys_user_role where user_id = #{userId};
   </select>
 
 </mapper>

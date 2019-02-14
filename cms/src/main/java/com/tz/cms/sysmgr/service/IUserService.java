@@ -1,7 +1,11 @@
 package com.tz.cms.sysmgr.service;
 
+import com.github.pagehelper.PageInfo;
+import com.tz.cms.framework.dto.PageParam;
 import com.tz.cms.sysmgr.dto.UserDto;
 import com.tz.cms.sysmgr.entity.User;
+import com.tz.cms.sysmgr.entity.UserToRole;
+import com.tz.cms.sysmgr.vo.UserVo;
 
 import java.util.List;
 
@@ -11,36 +15,14 @@ import java.util.List;
  * @date 2019/1/30 11:35
  */
 public interface IUserService {
+
     /**
-     * 新增用户
+     * 分页查询用户列表
      * @param user
-     * @return
+     * @param pageParam
+     * @return List<User>
      */
-    int addUser(User user);
-
-    /**
-     * 删除用户
-     * @param userId
-     * @return
-     */
-    int delUser(Integer userId);
-
-    /**
-     * 更改用户信息
-     * @param user
-     * @return
-     */
-    int updateUser(User user);
-
-    /**
-     * 修改密码
-     * @param user
-     * @param oldPsd
-     * @param newPsd
-     * @return
-     */
-    boolean updateUserPsd(User user, String oldPsd,String newPsd);
-
+    PageInfo<UserDto> queryUserListPage(User user, PageParam pageParam);
     /**
      * 通过用户ID查询用户
      * @param userId
@@ -62,4 +44,49 @@ public interface IUserService {
      * @return
      */
     User loginUser(String loginName,String password);
+    /**
+     * 新增用户
+     * @param userVo
+     * @return
+     */
+    int addUser(UserVo userVo);
+
+    /**
+     * 修改用户
+     * @param userVo
+     * @return
+     */
+    boolean uptUser(UserVo userVo);
+
+    /**
+     * 删除用户
+     * @param userId
+     * @return
+     */
+    int delUser(Integer userId);
+
+
+
+    /**
+     * 更改用户信息
+     * @param user
+     * @return
+     */
+    int updateUser(User user);
+
+    /**
+     * 修改密码
+     * @param user
+     * @param oldPsd
+     * @param newPsd
+     * @return
+     */
+    boolean updateUserPsd(User user, String oldPsd,String newPsd);
+
+    /**
+     * 通过用户id获取角色信息
+     * @param userId
+     * @return
+     */
+    List<UserToRole> queryUserRoleByUserId(Long userId);
 }

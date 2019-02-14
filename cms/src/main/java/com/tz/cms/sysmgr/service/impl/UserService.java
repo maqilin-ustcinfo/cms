@@ -1,17 +1,24 @@
 package com.tz.cms.sysmgr.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.tz.cms.framework.dto.PageParam;
 import com.tz.cms.framework.util.EncryptUtil;
 import com.tz.cms.framework.util.UserUtils;
 import com.tz.cms.sysmgr.dto.UserDto;
 import com.tz.cms.sysmgr.entity.User;
+import com.tz.cms.sysmgr.entity.UserToRole;
 import com.tz.cms.sysmgr.mapper.UserMapper;
 import com.tz.cms.sysmgr.service.IUserService;
+import com.tz.cms.sysmgr.vo.UserVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author maqilin
@@ -28,12 +35,53 @@ public class UserService implements IUserService {
     private UserMapper userMapper;
 
     @Override
-    public int addUser(User user) {
-        return userMapper.addUser(user);
+    public int addUser(UserVo userVo) {
+        // 新增用户
+        User user = userVo.getUser();
+        user.setUpdateBy(UserUtils.getCurrrentUserId()+"");
+        user.setUpdateDate(new Date());
+        user.setPassword(encyptPassword("123"));
+        int i = userMapper.addUser(user);
+        System.out.println("user==="+user.getUserId());
+        // 新增用户-角色信息
+        List<UserToRole> userToRoleList = new ArrayList<>();
+        Map<Long,Long> roleIds = userVo.getRoleIds();
+        for(Long id : roleIds.keySet()){
+            UserToRole userToRole = new UserToRole();
+            userToRole.setRoleId(id);
+            userToRole.setUserId(Long.parseLong(user.getUserId()+""));
+            userToRoleList.add(userToRole);
+        }
+        userMapper.addUserRoleBatch(userToRoleList);
+        return 0;
+    }
+
+    @Override
+    public boolean uptUser(UserVo userVo) {
+        boolean flag;
+        // 修改用户
+        User user = userVo.getUser();
+        user.setUpdateBy(UserUtils.getCurrrentUserId()+"");
+        user.setUpdateDate(new Date());
+        userMapper.updateUser(user);
+        // 修改
+        userMapper.delUserRoleByUserId(Long.parseLong(user.getUserId()+""));
+        // 新增用户-角色信息
+        List<UserToRole> userToRoleList = new ArrayList<>();
+        Map<Long,Long> roleIds = userVo.getRoleIds();
+        for(Long id : roleIds.keySet()){
+            UserToRole userToRole = new UserToRole();
+            userToRole.setRoleId(id);
+            userToRole.setUserId(Long.parseLong(user.getUserId()+""));
+            userToRoleList.add(userToRole);
+        }
+        flag = userMapper.addUserRoleBatch(userToRoleList);
+        return false;
     }
 
     @Override
     public int delUser(Integer userId) {
+        userMapper.delUserRoleByUserId(Long.parseLong(userId+""));
         return userMapper.delUser(userId);
     }
 
@@ -53,6 +101,19 @@ public class UserService implements IUserService {
     		flag = true;
     	}
         return flag;
+    }
+
+    @Override
+    public List<UserToRole> queryUserRoleByUserId(Long userId) {
+        return userMapper.queryUserRoleByUserId(userId);
+    }
+
+    @Override
+    public PageInfo<UserDto> queryUserListPage(User user, PageParam pageParam) {
+        PageHelper.startPage(pageParam.getPageNo(),pageParam.getPageSize());
+        List<UserDto> userList = userMapper.queryUserDtoList(user);
+        PageInfo<UserDto> pageInfo = new PageInfo<UserDto>(userList);
+        return pageInfo;
     }
 
     @Override

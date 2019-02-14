@@ -64,6 +64,18 @@ public class DeptController {
 		return "sysmanage/dept/deptEdit";
 	}
 
+
+	/**
+	 * 获取所有部门
+	 * @return
+	 */
+	@RequestMapping("/getAllDeptList")
+	@ResponseBody
+	public List<Dept> getAllDeptList(){
+		List<Dept> deptList = deptService.getAllDeptList();
+		return deptList;
+	}
+
 	/**
 	 * ztree获取数据
 	 * @return

@@ -159,7 +159,7 @@
 		    <div id="collapse-13" class="accordion-body in collapse" style="height: auto;">
 				<div class="accordion-inner">
 					<ul class="nav nav-list">
-						<li class="active"><a data-href=".menu3-20" href="userMgr.html" target="mainFrame"><i class="icon-user icon-white"></i>&nbsp;用户管理</a>
+						<li class="active"><a data-href=".menu3-20" href="${ctx}/sysmgr/user/gotoUserList" target="mainFrame"><i class="icon-user icon-white"></i>&nbsp;用户管理</a>
 							<ul class="nav nav-list hide" style="margin:0;padding-right:0;">
 							</ul></li>
 						<li class=""><a data-href=".menu3-17" href="${ctx}/sysmgr/dept/gotoDeptList" target="mainFrame"><i class="icon-th-large"></i>&nbsp;机构管理</a>
