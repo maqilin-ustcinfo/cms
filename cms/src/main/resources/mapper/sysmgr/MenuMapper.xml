@@ -40,6 +40,16 @@
     from pm_sys_menu a left join pm_sys_menu b on a.parent_id = b.id
   </select>
 
+  <!--根据用户id查询菜单-->
+  <select id="getMenuListByUserId" parameterType="long" resultType="menu">
+    select
+    a.id, a.parent_id, a.name,a.sort, a.href,
+    a.target, a.icon, a.is_show, a.permission, a.update_by,
+    a.update_date,a.remarks
+    from pm_sys_menu a,pm_sys_user_role r,pm_sys_role_menu m
+    where r.role_id = m.role_id and m.menu_id = a.id and r.user_id=#{userId}
+  </select>
+
   <!--根据parentId得到子菜单-->
   <select id="getChildNodeByParentId" resultType="menu" parameterType="java.lang.Long" >
     select

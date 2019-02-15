@@ -19,6 +19,12 @@ public interface IMenuService {
 	List<Menu> getAllMenuList();
 
 	/**
+	 * 根据用户ID查询当前登陆用户有那些菜单
+	 * @return
+	 */
+	List<Menu> getMenuListByUserId(Long userId);
+
+	/**
 	 * 根据parentId得到子菜单
 	 * @param parentId
 	 * @return

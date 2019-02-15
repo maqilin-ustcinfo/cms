@@ -26,6 +26,13 @@ public interface MenuMapper {
 	 * @return
 	 */
 	List<Menu> getAllMenuList();
+
+	/**
+	 * 根据用户ID查询当前登陆用户有那些菜单
+	 * @param userId
+	 * @return
+	 */
+	List<Menu> getMenuListByUserId(Long userId);
 	
 	/**
 	 * 统计一个节点下的子节点数量

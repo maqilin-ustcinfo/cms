@@ -1,6 +1,9 @@
 package com.tz.cms.sysmgr.controller;
 
+import com.tz.cms.framework.util.UserUtils;
+import com.tz.cms.sysmgr.entity.Menu;
 import com.tz.cms.sysmgr.entity.User;
+import com.tz.cms.sysmgr.service.IMenuService;
 import com.tz.cms.sysmgr.service.impl.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -10,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @author maqilin
@@ -23,6 +27,9 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private IMenuService menuService;
 
     /**
      * 跳转到登陆页面
@@ -67,8 +74,16 @@ public class LoginController {
         return "login";
     }
 
+    /**
+     * 转到主页面
+     * @return
+     */
     @RequestMapping("/main")
-    public String main(){
+    public String main(Model model){
+        // 根据用户ID查询当前登陆用户有那些菜单
+        List<Menu> menuList =
+                menuService.getMenuListByUserId(Long.parseLong(UserUtils.getCurrrentUserId()+""));
+        model.addAttribute("menuList",menuList);
         return "main/main";
     }
 }
