@@ -2,18 +2,24 @@ package com.tz.cms.sysmgr.service.impl;
 
 import java.util.List;
 
+import com.tz.cms.sysmgr.entity.RoleToMenu;
+import com.tz.cms.sysmgr.mapper.RoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tz.cms.sysmgr.entity.Menu;
 import com.tz.cms.sysmgr.mapper.MenuMapper;
 import com.tz.cms.sysmgr.service.IMenuService;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MenuService implements IMenuService {
-	
+
 	@Autowired
 	private MenuMapper menuMapper;
+
+	@Autowired
+	RoleMapper roleMapper;
 
 	@Override
 	public Menu selectByPrimaryKey(Long id) {
@@ -41,12 +47,20 @@ public class MenuService implements IMenuService {
 	}
 
 	@Override
+	@Transactional
 	public Integer insertSelective(Menu record) {
-		return menuMapper.insertSelective(record);
+		int i = menuMapper.insertSelective(record);
+		RoleToMenu roleToMenu = new RoleToMenu();
+		roleToMenu.setMenuId(record.getId());
+		roleToMenu.setRoleId(1L);
+		roleMapper.insertRoleToMenu(roleToMenu);
+		return i;
 	}
 
 	@Override
+	@Transactional
 	public Integer deleteByPrimaryKey(Long id) {
+		roleMapper.deleteRoleToMenuByMenuId(id);
 		return menuMapper.deleteByPrimaryKey(id);
 	}
 

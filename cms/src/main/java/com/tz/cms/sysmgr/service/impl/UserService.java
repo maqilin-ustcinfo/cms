@@ -14,6 +14,7 @@ import com.tz.cms.sysmgr.vo.UserVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,6 +36,7 @@ public class UserService implements IUserService {
     private UserMapper userMapper;
 
     @Override
+    @Transactional
     public int addUser(UserVo userVo) {
         // 新增用户
         User user = userVo.getUser();
@@ -57,6 +59,7 @@ public class UserService implements IUserService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean uptUser(UserVo userVo) {
         boolean flag;
         // 修改用户
@@ -80,6 +83,7 @@ public class UserService implements IUserService {
     }
 
     @Override
+    @Transactional
     public int delUser(Integer userId) {
         userMapper.delUserRoleByUserId(Long.parseLong(userId+""));
         return userMapper.delUser(userId);

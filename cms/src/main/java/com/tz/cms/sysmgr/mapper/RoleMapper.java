@@ -54,6 +54,25 @@ public interface RoleMapper {
     int insertSelective(Role record);
 
     /**
+     * 增加角色-菜单
+     * @param roleToMenu
+     */
+    void insertRoleToMenu(RoleToMenu roleToMenu);
+
+    /**
+     * 增加角色-部门
+     * @param roleToDept
+     */
+    void insertRoleToDept(RoleToDept roleToDept);
+
+    /**
+     * 增加角色-区域
+     * @param roleToArea
+     */
+    void insertRoleToArea(RoleToArea roleToArea);
+
+
+    /**
      * 批量增加角色-菜单
      * @param roleToMenuList
      */
@@ -83,6 +102,24 @@ public interface RoleMapper {
      * @param roleId
      */
     void deleteRoleToMenu(Long roleId);
+
+    /**
+     * 删除角色菜单
+     * @param menuId
+     */
+    void deleteRoleToMenuByMenuId(Long menuId);
+
+    /**
+     * 删除角色部门
+     * @param deptId
+     */
+    void deleteRoleToDeptByDeptId(Long deptId);
+
+    /**
+     * 删除角色区域
+     * @param areaId
+     */
+    void deleteRoleToAreaByAreaId(Long areaId);
 
     /**
      * 删除角色部门

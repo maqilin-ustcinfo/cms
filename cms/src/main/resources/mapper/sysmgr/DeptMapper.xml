@@ -54,6 +54,9 @@
 
   <!--增加部门-->
   <insert id="insertSelective" parameterType="dept">
+    <selectKey keyProperty="id" resultType="long" order="AFTER">
+      SELECT LAST_INSERT_ID() as id
+    </selectKey>
     insert into pm_sys_dept(parent_id, name, sort, code, address, master, phone, fax, email,
      update_by, update_date, remarks)values(#{parentId},#{name},#{sort},#{code},#{address},#{master},
      #{phone},#{fax},#{email},#{updateBy},#{updateDate},#{remarks})

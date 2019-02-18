@@ -65,6 +65,9 @@
   
   <!-- 增加菜单 -->
   <insert id="insertSelective" parameterType="com.tz.cms.sysmgr.entity.Menu" >
+    <selectKey keyProperty="id" resultType="long" order="AFTER">
+      SELECT LAST_INSERT_ID() as id
+    </selectKey>
     insert into pm_sys_menu
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

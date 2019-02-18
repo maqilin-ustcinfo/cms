@@ -85,6 +85,18 @@
     </trim>
   </insert>
 
+
+  <!--增加角色-菜单-->
+  <insert id="insertRoleToMenu" parameterType="roleToMenu">
+    insert into pm_sys_role_menu(role_id,menu_id)values (#{roleId},#{menuId})
+  </insert>
+  <insert id="insertRoleToDept" parameterType="roleToDept">
+    insert into pm_sys_role_dept(role_id,dept_id)values(#{roleId},#{deptId})
+  </insert>
+  <insert id="insertRoleToArea" parameterType="roleToArea">
+    insert into pm_sys_role_area(role_id,area_id)values (#{roleId},#{areaId})
+  </insert>
+
   <!--增加角色-菜单-->
   <insert id="batchInsertRoleToMenu" parameterType="roleToMenu">
     insert into pm_sys_role_menu(role_id,menu_id) values
@@ -112,6 +124,17 @@
   <!--删除角色-->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from pm_sys_role where id = #{id}
+  </delete>
+
+  <!--删除角色-菜单-->
+  <delete id="deleteRoleToMenuByMenuId" parameterType="java.lang.Long" >
+    delete from pm_sys_role_menu where menu_id = #{menuId}
+  </delete>
+  <delete id="deleteRoleToDeptByDeptId" parameterType="java.lang.Long" >
+    delete from pm_sys_role_dept where dept_id = #{deptId}
+  </delete>
+  <delete id="deleteRoleToAreaByAreaId" parameterType="java.lang.Long" >
+    delete from pm_sys_role_area where area_id = #{areaId}
   </delete>
 
   <!--删除角色-菜单-->
