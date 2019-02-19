@@ -58,4 +58,30 @@
 
     <aop:aspectj-autoproxy />
 
+    <!--与activiti集成-->
+    <bean id = "processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="transactionManager" ref="txManager" />
+        <property name="databaseSchemaUpdate" value="true" />
+        <property name="jobExecutorActivate" value="false" />
+    </bean>
+
+    <!--ProcessEngine-->
+    <bean id = "processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
+        <property name="processEngineConfiguration" ref="processEngineConfiguration"></property>
+    </bean>
+
+    <!--各种方法接口-->
+    <bean id = "repositoryService" factory-bean="processEngine"
+          factory-method="getRepositoryService"/>
+    <bean id="runtimeService" factory-bean="processEngine"
+          factory-method="getRuntimeService" />
+    <bean id="taskService" factory-bean="processEngine"
+          factory-method="getTaskService" />
+    <bean id="historyService" factory-bean="processEngine"
+          factory-method="getHistoryService" />
+    <bean id="managementService" factory-bean="processEngine"
+          factory-method="getManagementService" />
+
+
 </beans>
