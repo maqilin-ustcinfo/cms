@@ -4,6 +4,7 @@ import com.alibaba.druid.pool.vendor.SybaseExceptionSorter;
 import com.sun.org.apache.bcel.internal.generic.LSTORE;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngines;
+import org.activiti.engine.RepositoryService;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.repository.Deployment;
@@ -14,6 +15,10 @@ import org.activiti.engine.task.Task;
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,14 +31,15 @@ import java.util.List;
  * @description: 请假流程测试
  * @date 2019/2/18 16:12
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:spring-beans.xml"})
 public class LeaveTest {
 
+    @Autowired
     private ProcessEngine processEngine;
 
-    @Before
-    public void init(){
-        processEngine = ProcessEngines.getDefaultProcessEngine();
-    }
+    @Autowired
+    private RepositoryService repositoryService;
 
     /**
      *   流程部署
@@ -217,7 +223,7 @@ public class LeaveTest {
             System.out.println("historicProcessInstance="+historicProcessInstance.getEndTime());
             System.out.println("============");
         }*/
-
+        //processEngine.getFormService()
         List<HistoricTaskInstance> HistoricTaskInstanceList =
                 processEngine.getHistoryService().createHistoricTaskInstanceQuery()
                 .processInstanceId(processInstanceId)
