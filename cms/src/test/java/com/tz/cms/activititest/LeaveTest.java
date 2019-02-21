@@ -23,7 +23,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -51,8 +53,8 @@ public class LeaveTest {
     public void testLeaveProcessDePloy(){
         Deployment deployment = processEngine.getRepositoryService()
                 .createDeployment()
-                .addClasspathResource("diagrams/leaveProcess.bpmn")
-                .addClasspathResource("diagrams/leaveProcess.png")
+                .addClasspathResource("diagrams/leave.bpmn")
+                .addClasspathResource("diagrams/leave.png")
                 .deploy();
         System.out.println("deployment部署的id="+deployment.getId());
         System.out.println("deployment部署的名称="+deployment.getName());
@@ -64,7 +66,7 @@ public class LeaveTest {
      */
     @Test
     public void testQueryProcessDefination(){
-        String key = "myProcess";
+        String key = "leave";
         List<ProcessDefinition> processDefinitionList =
                 processEngine.getRepositoryService().createProcessDefinitionQuery()
                 .processDefinitionKey(key)
@@ -123,7 +125,7 @@ public class LeaveTest {
     @Test
     public void testDeleteProcessDefination(){
         String key = "myProcess";
-        String deploymentId = "10001";
+        String deploymentId = "42501";
         //processEngine.getRepositoryService().deleteDeployment(deploymentId);
         //强制删除，运行中
         processEngine.getRepositoryService().deleteDeployment(deploymentId,true);
@@ -147,12 +149,12 @@ public class LeaveTest {
     @Test
     public void testStartProcess(){
         String key = "myProcess";
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("userId","tds");
         ProcessInstance processInstance =  processEngine.getRuntimeService()
-                .startProcessInstanceByKey(key);
-        System.out.println(processInstance.getDeploymentId());
-        System.out.println(processInstance.getName());
-        System.out.println(processInstance.getProcessInstanceId());//15001
-        System.out.println(processInstance.getProcessDefinitionId());//myProcess:1:4
+                .startProcessInstanceByKey(key,variables);
+        System.out.println(processInstance.getProcessInstanceId());//80001
+        System.out.println(processInstance.getProcessDefinitionId());
     }
 
     /**
@@ -160,7 +162,7 @@ public class LeaveTest {
      */
     @Test
     public void testQueryProcess(){
-        String processInstanceId = "15001";
+        String processInstanceId = "80001";
         ProcessInstance processInstance = processEngine.getRuntimeService()
                 .createProcessInstanceQuery()
                 .processInstanceId(processInstanceId)
@@ -176,20 +178,56 @@ public class LeaveTest {
     /**
      * 查询任务
      * act_ru_task
+     *   流程变量(通过流程变量的设置来控制流程的走向(排它网关)
+     *  当某个流程实例执行完以后以后,在流程实例表表act_ru_variable中的记录会被删除 ,
+     * 	但是 act_hi_varinst表中存储了历史记录
+     * 	任务的指定人：
+     * 	    单个人：mql ; ${userId};监听类实现TaskListener接口
+     * 	    一组人或者角色多一个任务拾取的过程。
+     * 	    一组人：mql,tds;${userIdS};监听类实现TaskListener接口
+     * 	    某个角色：R110;${XXX};监听类实现TaskListener接口
+     *
      */
     @Test
     public void testQueryTask(){
+        String taskAssignee = "马其林";
+        String processInstanceId = "80001";
         List<Task> taskList = processEngine.getTaskService().createTaskQuery()
-                //.taskAssignee("zhang")
-                .processInstanceId("15001")
+                .taskAssignee(taskAssignee)
+                .processInstanceId(processInstanceId)
                 .list();
         System.out.println("taskList="+taskList.size());
+        String taskId = null;
         for (Task task:taskList){
             System.out.println("执行的人："+task.getAssignee());
             System.out.println("流程实例ID："+task.getProcessInstanceId());
-            System.out.println("任务ID:"+task.getId());//15004
+            System.out.println("任务ID:"+task.getId());//27504 30004
             System.out.println("任务名称："+task.getName());
+            taskId = task.getId();
         }
+
+       /* // 设置流程变量
+        processEngine.getTaskService().setVariable(taskId,"请假原因","肚子疼");
+        processEngine.getRuntimeService().setVariable(processInstanceId,"请假原因r","肚子痛");
+        processEngine.getTaskService().complete(taskId);
+
+        processEngine.getTaskService().setVariableLocal(taskId,"请假原因","不想上班");
+        processEngine.getRuntimeService().setVariableLocal(processInstanceId,"请假原因1","不想上班1");
+        processEngine.getTaskService().complete(taskId);*/
+
+       // 获取流程变量
+        /*System.out.println(processEngine.getTaskService().getVariable(taskId,"请假原因"));
+        System.out.println("=================");
+        System.out.println(processEngine.getRuntimeService().getVariable(processInstanceId,"请假原因r"));
+        processEngine.getTaskService().complete(taskId);
+        System.out.println("完成任务");
+        System.out.println("1="+processEngine.getTaskService().getVariableLocal("37504","请假原因"));
+        System.out.println("=================");
+        System.out.println("2="+processEngine.getRuntimeService().getVariableLocal(processInstanceId,"请假原因1"));
+        System.out.println("3="+processEngine.getRuntimeService().getVariable(processInstanceId,"请假原因1"));
+        */
+        //processEngine.getTaskService().setVariable(taskId,"money",600);
+        processEngine.getTaskService().complete(taskId);
     }
 
     /**
