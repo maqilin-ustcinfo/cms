@@ -15,13 +15,19 @@ import java.util.concurrent.Future;
  */
 public class Person {
 
-    private String name;
+    protected String name;
 
-    private Integer age;
+    protected Integer age;
 
-    private String address;
+    protected String address;
 
-    public Person(String name, Integer age, String address) {
+
+
+    public Person() {
+    }
+
+    private Person(String name, Integer age, String address) {
+        System.out.println("初始化Person");
         this.name = name;
         this.age = age;
         this.address = address;
@@ -65,7 +71,7 @@ public class Person {
     }
 
     public static void main(String[] args) {
-        ExecutorService threedPool = Executors.newFixedThreadPool(10);
+        /*ExecutorService threedPool = Executors.newFixedThreadPool(10);
         try {
             for(int i=0;i<10;i++){
                 MyThread task = new MyThread();
@@ -79,6 +85,14 @@ public class Person {
             e.printStackTrace();
         }finally {
             threedPool.shutdown();
-        }
+        }*/
+        // 值在-128~127 都是取缓存中的同一个对象，否则是不是同一个对象。
+        Integer a = -129;
+        Integer b = -129;
+       // int c = a;
+        System.out.println("是同一个对象？"+(a == b));
+        System.out.println("对象相等吗？"+ a.equals(b));// true
+
+        Person p = new Person();
     }
 }

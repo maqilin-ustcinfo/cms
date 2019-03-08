@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="approveProcess2" name="流程2" isExecutable="true">
+    <startEvent id="startevent1" name="Start"></startEvent>
+    <userTask id="approve1" name="一级审核" activiti:assignee="${userId}"></userTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="approve1"></sequenceFlow>
+    <userTask id="approve2" name="二级审核" activiti:async="true" activiti:assignee="${userId}"></userTask>
+    <sequenceFlow id="flow2" sourceRef="approve1" targetRef="approve2"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow3" sourceRef="approve2" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow4" name="审核不通过" sourceRef="approve1" targetRef="endevent1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${condition=='no'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow5" name="审核不通过" sourceRef="approve2" targetRef="approve1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${condition=='no'}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_approveProcess2">
+    <bpmndi:BPMNPlane bpmnElement="approveProcess2" id="BPMNPlane_approveProcess2">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="440.0" y="30.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="approve1" id="BPMNShape_approve1">
+        <omgdc:Bounds height="55.0" width="105.0" x="405.0" y="120.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="approve2" id="BPMNShape_approve2">
+        <omgdc:Bounds height="55.0" width="105.0" x="405.0" y="250.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="440.0" y="380.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="457.0" y="65.0"></omgdi:waypoint>
+        <omgdi:waypoint x="457.0" y="120.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="457.0" y="175.0"></omgdi:waypoint>
+        <omgdi:waypoint x="457.0" y="250.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="457.0" y="305.0"></omgdi:waypoint>
+        <omgdi:waypoint x="457.0" y="380.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="510.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="679.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="679.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="679.0" y="397.0"></omgdi:waypoint>
+        <omgdi:waypoint x="475.0" y="397.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="18.0" width="80.0" x="639.0" y="233.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="405.0" y="277.0"></omgdi:waypoint>
+        <omgdi:waypoint x="233.0" y="277.0"></omgdi:waypoint>
+        <omgdi:waypoint x="233.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="405.0" y="147.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="18.0" width="80.0" x="191.0" y="200.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

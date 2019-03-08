@@ -1,21 +1,15 @@
 package com.tz.cms.activititest;
 
-import com.alibaba.druid.pool.vendor.SybaseExceptionSorter;
-import com.sun.org.apache.bcel.internal.generic.LSTORE;
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.ProcessEngine;
-import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.RepositoryService;
-import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
-import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
 import org.apache.commons.io.FileUtils;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +31,7 @@ import java.util.Map;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-beans.xml"})
-public class LeaveTest {
+public class LeaveTest2 {
 
     @Autowired
     private ProcessEngine processEngine;
@@ -58,8 +52,8 @@ public class LeaveTest {
     public void testLeaveProcessDePloy(){
         Deployment deployment = processEngine.getRepositoryService()
                 .createDeployment()
-                .addClasspathResource("diagrams/approveProcess.bpmn")
-                .addClasspathResource("diagrams/approveProcess.png")
+                .addClasspathResource("diagrams/approveProcess2.bpmn")
+                .addClasspathResource("diagrams/approveProcess2.png")
                 .name("审核流程")
                 .deploy();
         System.out.println("deployment部署的id="+deployment.getId());
@@ -130,8 +124,8 @@ public class LeaveTest {
      */
     @Test
     public void testDeleteProcessDefination(){
-        String key = "myProcess";
-        String deploymentId = "42501";
+        String key = "approveProcess";
+        String deploymentId = "102501";
         //processEngine.getRepositoryService().deleteDeployment(deploymentId);
         //强制删除，运行中
         processEngine.getRepositoryService().deleteDeployment(deploymentId,true);
@@ -154,7 +148,7 @@ public class LeaveTest {
      */
     @Test
     public void testStartProcess(){
-        String key = "approveProcess";
+        String key = "approveProcess2";
 
         String assignee = "tds";
 
@@ -179,7 +173,7 @@ public class LeaveTest {
         variables.put("userId","mql");
         // 待办标题
         variables.put("title", "请假流程");
-        String businessKey = "PM_ACTIVITI_LEAVE:3";
+        String businessKey = "PM_SYS_USER:5";
         ProcessInstance processInstance =  processEngine.getRuntimeService()
                 .startProcessInstanceByKey(key,businessKey,variables);
 
@@ -204,16 +198,32 @@ public class LeaveTest {
         return list.size() > 0 ? list.get(0) : null;
     }
 
+    /**
+     * 根据不同的buinessKey查询个人任务的方法
+     */
     @Test
     public void getPersonTask(){
         String assignee = "mql";
+        Long t1 = System.currentTimeMillis();
         TaskQuery taskQuery = processEngine.getTaskService().
                 createTaskQuery()
                 .taskAssignee(assignee)
                 .active()
                 .includeProcessVariables().orderByTaskCreateTime()
                 .desc();
-        System.out.println("taskQuery.count="+taskQuery.count());
+        Long t2 = System.currentTimeMillis();
+        System.out.println("taskQuery.count原始="+taskQuery.count());
+
+        taskQuery.processInstanceBusinessKeyLike("PM_SYS_USER%");
+        Long t3 = System.currentTimeMillis();
+        System.out.println("taskQuery.countPM_SYS_USER="+taskQuery.count());
+
+        taskQuery.processInstanceBusinessKeyLike("PM_ACTIVITI_LEAVE%");
+        System.out.println("taskQuery.countPM_ACTIVITI_LEAVE="+taskQuery.count());
+
+        System.out.println("1="+(t2-t1)/1000);
+        System.out.println("2="+(t3-t2)/1000);
+
         List<Task> taskList = taskQuery.listPage(0,10);
         for(Task task : taskList){
             System.out.println("任务ID:"+task.getId());//107507

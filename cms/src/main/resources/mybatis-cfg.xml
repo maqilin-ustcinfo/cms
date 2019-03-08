@@ -9,6 +9,7 @@
     <typeAliases>
         <package name="com.tz.cms.sysmgr.entity"/>
         <package name="com.tz.cms.sysmgr.dto"/>
+        <package name="com.tz.cms.activitimanage.entity"/>
     </typeAliases>
     <!-- 配置pageHelper分页插件 -->
     <plugins>
